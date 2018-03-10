@@ -955,6 +955,28 @@ int fdevent_is_tcp_half_closed(int fd) {
   #endif
 }
 
+#ifndef IP_TRANSPARENT
+#define IP_TRANSPARENT 19
+#endif
+
+#ifndef IPV6_TRANSPARENT
+#define IPV6_TRANSPARENT 75
+#endif
+
+int fdevent_set_transparent(const int fd, const int opt, int family)
+{
+    switch (family) {
+    case AF_INET:
+        return setsockopt(fd, IPPROTO_IP, IP_TRANSPARENT, &opt, sizeof(opt));
+#ifdef HAVE_IPV6
+    case AF_INET6:
+        return setsockopt(fd, IPPROTO_IPV6, IPV6_TRANSPARENT, &opt, sizeof(opt));
+#endif
+    default:
+        errno = ENOPROTOOPT;
+        return -1;
+    }
+}
 
 int fdevent_set_tcp_nodelay (const int fd, const int opt)
 {
