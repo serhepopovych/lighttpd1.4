@@ -279,6 +279,11 @@ static int network_server_init(server *srv, buffer *host_token, size_t sidx, int
 			log_error_write(srv, __FILE__, __LINE__, "ss", "socket failed:", strerror(errno));
 			return -1;
 		}
+
+		if (-1 == fdevent_set_transparent(srv_socket->fd, s->set_transparent, family)) {
+			log_error_write(srv, __FILE__, __LINE__, "ss", "transparent failed:", strerror(errno));
+			return -1;
+		}
 	}
 
 #ifdef HAVE_IPV6
