@@ -87,6 +87,7 @@ int fdevent_connect_status(int fd);
 /* fd must be TCP socket (AF_INET, AF_INET6), end-of-stream recv() 0 bytes */
 int fdevent_is_tcp_half_closed(int fd);
 int fdevent_set_tcp_nodelay (const int fd, const int opt);
+int fdevent_set_transparent(const int fd, const int opt, int family);
 
 int fdevent_set_so_reuseaddr (const int fd, const int opt);
 

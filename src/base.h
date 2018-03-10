@@ -233,6 +233,7 @@ typedef struct {
 
 	/* server wide */
 	unsigned short use_ipv6, set_v6only; /* set_v6only is only a temporary option */
+	unsigned short set_transparent;
 	unsigned short defer_accept;
 	unsigned short ssl_enabled; /* only interesting for setting up listening sockets. don't use at runtime */
 	unsigned short allow_http11;
